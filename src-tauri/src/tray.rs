@@ -12,7 +12,7 @@ pub fn setup_tray<R: Runtime>(app: &AppHandle<R>) -> Result<(), tauri::Error> {
     TrayIconBuilder::with_id("token-tracker")
         .icon(app.default_window_icon().unwrap().clone())
         .menu(&menu)
-        .menu_on_left_click(false)
+        .show_menu_on_left_click(false)
         .tooltip("Token Tracker")
         .on_menu_event(|app, event| match event.id.as_ref() {
             "quit" => {

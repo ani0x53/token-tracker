@@ -9,7 +9,7 @@ Built with **Tauri v2** (Rust backend) + **React 19 + TypeScript** (frontend).
 ## Install
 
 ```sh
-npm install -g token-tracker
+npm install -g @anibx/token-tracker
 token-tracker
 ```
 

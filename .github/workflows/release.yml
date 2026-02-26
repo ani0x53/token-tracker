@@ -63,7 +63,7 @@ jobs:
             ## Install
 
             ```sh
-            npm install -g token-tracker
+            npm install -g @anibx/token-tracker
             ```
 
             Or download a binary for your platform below.

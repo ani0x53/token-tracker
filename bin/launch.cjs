@@ -13,7 +13,7 @@ function launch() {
     const bin = path.join(os.homedir(), '.local', 'share', 'token-tracker', 'token-tracker.AppImage');
     if (!fs.existsSync(bin)) {
       console.error(`Binary not found at ${bin}`);
-      console.error('Try reinstalling: npm install -g token-tracker');
+      console.error('Try reinstalling: npm install -g @anibx/token-tracker');
       process.exit(1);
     }
     spawn(bin, [], { detached: true, stdio: 'ignore' }).unref();
@@ -23,7 +23,7 @@ function launch() {
     const system = '/Applications/Token Tracker.app';
     if (!fs.existsSync(local) && !fs.existsSync(system)) {
       console.error('Token Tracker.app not found in ~/Applications or /Applications.');
-      console.error('Try reinstalling: npm install -g token-tracker');
+      console.error('Try reinstalling: npm install -g @anibx/token-tracker');
       process.exit(1);
     }
     const appPath = fs.existsSync(local) ? local : system;
@@ -37,7 +37,7 @@ function launch() {
     );
     if (!fs.existsSync(exe)) {
       console.error(`Executable not found at ${exe}`);
-      console.error('Try reinstalling: npm install -g token-tracker');
+      console.error('Try reinstalling: npm install -g @anibx/token-tracker');
       process.exit(1);
     }
     spawn(exe, [], { detached: true, stdio: 'ignore' }).unref();

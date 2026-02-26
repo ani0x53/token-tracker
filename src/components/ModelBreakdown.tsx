@@ -76,7 +76,7 @@ export default function ModelBreakdown({ data }: ModelBreakdownProps) {
             borderRadius: 8,
             color: "#f9fafb",
           }}
-          formatter={(value: number) => [`$${value.toFixed(4)}`, "Cost"]}
+          formatter={(value: number | undefined) => [`$${(value ?? 0).toFixed(4)}`, "Cost"]}
         />
         <Bar dataKey="cost" radius={[0, 4, 4, 0]}>
           {chartData.map((entry, i) => (

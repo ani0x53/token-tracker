@@ -57,8 +57,8 @@ export default function UsageChart({ data }: UsageChartProps) {
             borderRadius: 8,
             color: "#f9fafb",
           }}
-          formatter={(value: number) => [`$${value.toFixed(4)}`, undefined]}
-          labelFormatter={formatDate}
+          formatter={(value: number | undefined) => [`$${(value ?? 0).toFixed(4)}`, undefined]}
+          labelFormatter={(label) => formatDate(String(label))}
         />
         <Legend
           wrapperStyle={{ paddingTop: 8, fontSize: 12 }}

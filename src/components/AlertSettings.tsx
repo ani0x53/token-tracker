@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Bell, X } from "lucide-react";
-import { open } from "@tauri-apps/plugin-opener";
+import { openUrl } from "@tauri-apps/plugin-opener";
 import { useSettingsStore } from "../store/settingsStore";
 
 interface AlertSettingsProps {
@@ -77,7 +77,7 @@ export default function AlertSettings({ onClose }: AlertSettingsProps) {
                   "password",
                 )}
                 <button
-                  onClick={() => open("https://console.anthropic.com/settings/admin-keys")}
+                  onClick={() => openUrl("https://console.anthropic.com/settings/admin-keys")}
                   className="text-xs text-indigo-400 hover:text-indigo-300 mt-1 transition-colors"
                 >
                   Get Admin key (console.anthropic.com) →
@@ -89,7 +89,7 @@ export default function AlertSettings({ onClose }: AlertSettingsProps) {
               <div>
                 {field("OpenAI API Key", "openai_key", "sk-...", "password")}
                 <button
-                  onClick={() => open("https://platform.openai.com/api-keys")}
+                  onClick={() => openUrl("https://platform.openai.com/api-keys")}
                   className="text-xs text-indigo-400 hover:text-indigo-300 mt-1 transition-colors"
                 >
                   Get API key (platform.openai.com) →

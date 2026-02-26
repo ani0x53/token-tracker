@@ -6,6 +6,17 @@ Built with **Tauri v2** (Rust backend) + **React 19 + TypeScript** (frontend).
 
 ---
 
+## Install
+
+```sh
+npm install -g token-tracker
+token-tracker
+```
+
+Or download a binary directly from the [latest release](https://github.com/ani0x53/token-tracker/releases/latest).
+
+---
+
 ## Features
 
 - **Real-time polling** — fetches usage from Anthropic and OpenAI APIs on a configurable interval (default 5 min)

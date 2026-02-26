@@ -12,7 +12,14 @@ import { useSettingsStore } from "../store/settingsStore";
 export default function Dashboard() {
   const [showSettings, setShowSettings] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const { settings } = useSettingsStore();
+  const { settings, loaded } = useSettingsStore();
+
+  // Auto-open settings on first launch if neither key is configured
+  useEffect(() => {
+    if (loaded && !settings.anthropic_key && !settings.openai_key) {
+      setShowSettings(true);
+    }
+  }, [loaded]);
 
   const {
     dailyTotals,

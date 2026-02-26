@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Bell, X } from "lucide-react";
+import { open } from "@tauri-apps/plugin-opener";
 import { useSettingsStore } from "../store/settingsStore";
 
 interface AlertSettingsProps {
@@ -68,13 +69,32 @@ export default function AlertSettings({ onClose }: AlertSettingsProps) {
               API Keys
             </h3>
             <div className="space-y-3">
-              {field(
-                "Anthropic Admin Key",
-                "anthropic_key",
-                "sk-ant-admin-...",
-                "password",
-              )}
-              {field("OpenAI API Key", "openai_key", "sk-...", "password")}
+              <div>
+                {field(
+                  "Anthropic Admin Key",
+                  "anthropic_key",
+                  "sk-ant-admin-...",
+                  "password",
+                )}
+                <button
+                  onClick={() => open("https://console.anthropic.com/settings/admin-keys")}
+                  className="text-xs text-indigo-400 hover:text-indigo-300 mt-1 transition-colors"
+                >
+                  Get Admin key (console.anthropic.com) →
+                </button>
+                <p className="text-xs text-gray-600 mt-0.5">
+                  Requires an Admin key, not a regular API key.
+                </p>
+              </div>
+              <div>
+                {field("OpenAI API Key", "openai_key", "sk-...", "password")}
+                <button
+                  onClick={() => open("https://platform.openai.com/api-keys")}
+                  className="text-xs text-indigo-400 hover:text-indigo-300 mt-1 transition-colors"
+                >
+                  Get API key (platform.openai.com) →
+                </button>
+              </div>
             </div>
           </div>
 

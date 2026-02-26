@@ -69,17 +69,19 @@ npm run tauri build
 
 ## Configuration
 
-On first launch, click **Settings** in the top-right corner and enter:
+On first launch the Settings panel opens automatically. Enter your API keys there.
 
-| Setting | Description |
-|---------|-------------|
-| **Anthropic Admin Key** | `sk-ant-admin-...` — Admin API key (NOT a standard key) |
-| **OpenAI API Key** | `sk-...` |
+**Keys are stored only on your machine** — in your OS app data directory. They are never sent anywhere except the respective API provider.
+
+| Setting | Where to get it |
+|---------|----------------|
+| **Anthropic Admin Key** | [console.anthropic.com/settings/admin-keys](https://console.anthropic.com/settings/admin-keys) — must be an **Admin** key, not a regular API key |
+| **OpenAI API Key** | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
 | **Poll Interval** | Seconds between data fetches (default 300) |
-| **Daily Alert ($)** | Trigger OS notification when daily spend exceeds this |
-| **Monthly Alert ($)** | Trigger OS notification when monthly spend exceeds this |
+| **Daily Alert ($)** | OS notification when daily spend exceeds this amount |
+| **Monthly Alert ($)** | OS notification when monthly spend exceeds this amount |
 
-Settings are saved locally in your OS app data directory (not committed to git).
+You can leave out either key if you only use one provider.
 
 ---
 

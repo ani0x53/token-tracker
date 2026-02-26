@@ -1,6 +1,6 @@
 {
   "name": "@anibx/token-tracker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Real-time token usage and cost tracker for Anthropic and OpenAI APIs",
   "type": "module",
   "bin": {

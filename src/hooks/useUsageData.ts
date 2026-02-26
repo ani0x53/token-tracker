@@ -5,7 +5,7 @@ import Database from "@tauri-apps/plugin-sql";
 
 export interface UsageSnapshot {
   id?: number;
-  provider: "anthropic" | "openai";
+  provider: "anthropic" | "openai" | "claude_code";
   model: string;
   date: string;
   input_tokens: number;
@@ -19,6 +19,7 @@ export interface DailyTotal {
   date: string;
   anthropic: number;
   openai: number;
+  claude_code: number;
   total: number;
 }
 
@@ -100,7 +101,7 @@ function aggregateDailyTotals(snapshots: UsageSnapshot[]): DailyTotal[] {
   const map = new Map<string, DailyTotal>();
   for (const s of snapshots) {
     if (!map.has(s.date)) {
-      map.set(s.date, { date: s.date, anthropic: 0, openai: 0, total: 0 });
+      map.set(s.date, { date: s.date, anthropic: 0, openai: 0, claude_code: 0, total: 0 });
     }
     const day = map.get(s.date)!;
     day[s.provider] += s.cost_usd;
@@ -170,6 +171,10 @@ export function useUsageData(days = 30) {
     .filter((s) => s.date === today && s.provider === "openai")
     .reduce((sum, s) => sum + s.cost_usd, 0);
 
+  const todayClaudeCodeCost = snapshots
+    .filter((s) => s.date === today && s.provider === "claude_code")
+    .reduce((sum, s) => sum + s.cost_usd, 0);
+
   const todayAnthropicTokens = snapshots
     .filter((s) => s.date === today && s.provider === "anthropic")
     .reduce((sum, s) => sum + s.input_tokens + s.output_tokens, 0);
@@ -178,14 +183,20 @@ export function useUsageData(days = 30) {
     .filter((s) => s.date === today && s.provider === "openai")
     .reduce((sum, s) => sum + s.input_tokens + s.output_tokens, 0);
 
+  const todayClaudeCodeTokens = snapshots
+    .filter((s) => s.date === today && s.provider === "claude_code")
+    .reduce((sum, s) => sum + s.input_tokens + s.output_tokens, 0);
+
   return {
     snapshots,
     dailyTotals: aggregateDailyTotals(snapshots),
     modelTotals: aggregateModelTotals(snapshots),
     todayAnthropicCost,
     todayOpenaiCost,
+    todayClaudeCodeCost,
     todayAnthropicTokens,
     todayOpenaiTokens,
+    todayClaudeCodeTokens,
     isLoading: query.isLoading,
     refetch,
   };

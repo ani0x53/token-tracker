@@ -16,6 +16,7 @@ interface UsageChartProps {
 
 const ANTHROPIC_COLOR = "#f59e0b";
 const OPENAI_COLOR = "#6366f1";
+const CLAUDE_CODE_COLOR = "#10b981";
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr + "T00:00:00");
@@ -63,7 +64,11 @@ export default function UsageChart({ data }: UsageChartProps) {
         <Legend
           wrapperStyle={{ paddingTop: 8, fontSize: 12 }}
           formatter={(value) =>
-            value === "anthropic" ? "Anthropic" : "OpenAI"
+            value === "anthropic"
+              ? "Anthropic"
+              : value === "openai"
+              ? "OpenAI"
+              : "Claude Code"
           }
         />
         <Line
@@ -78,6 +83,14 @@ export default function UsageChart({ data }: UsageChartProps) {
           type="monotone"
           dataKey="openai"
           stroke={OPENAI_COLOR}
+          strokeWidth={2}
+          dot={false}
+          activeDot={{ r: 4 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="claude_code"
+          stroke={CLAUDE_CODE_COLOR}
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 4 }}

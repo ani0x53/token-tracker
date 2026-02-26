@@ -4,7 +4,11 @@ use serde_json::Value;
 use tauri::{AppHandle, Emitter, Manager, Runtime};
 use tauri_plugin_notification::NotificationExt;
 
-use crate::api::{anthropic::fetch_anthropic_usage, openai::fetch_openai_usage};
+use crate::api::{
+    anthropic::fetch_anthropic_usage,
+    claude_code::fetch_claude_code_usage,
+    openai::fetch_openai_usage,
+};
 use crate::tray::update_tray_tooltip;
 
 /// Read a setting from the in-memory store (via JS bridge would be cleaner, but
@@ -92,10 +96,17 @@ pub fn start_poller<R: Runtime + 'static>(app: AppHandle<R>) {
                 .unwrap_or("")
                 .to_string();
 
-            // Fetch both providers concurrently
-            let (anthropic_result, openai_result) = tokio::join!(
+            // Resolve home directory for local Claude Code log parsing
+            let home_dir = app
+                .path()
+                .home_dir()
+                .unwrap_or_else(|_| std::path::PathBuf::from("."));
+
+            // Fetch all providers concurrently
+            let (anthropic_result, openai_result, claude_code_result) = tokio::join!(
                 fetch_anthropic_usage(&anthropic_key),
                 fetch_openai_usage(&openai_key),
+                fetch_claude_code_usage(home_dir),
             );
 
             let mut all_snapshots = Vec::new();
@@ -103,6 +114,9 @@ pub fn start_poller<R: Runtime + 'static>(app: AppHandle<R>) {
                 all_snapshots.extend(snaps);
             }
             if let Ok(snaps) = openai_result {
+                all_snapshots.extend(snaps);
+            }
+            if let Ok(snaps) = claude_code_result {
                 all_snapshots.extend(snaps);
             }
 

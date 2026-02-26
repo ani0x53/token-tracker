@@ -26,8 +26,10 @@ export default function Dashboard() {
     modelTotals,
     todayAnthropicCost,
     todayOpenaiCost,
+    todayClaudeCodeCost,
     todayAnthropicTokens,
     todayOpenaiTokens,
+    todayClaudeCodeTokens,
     isLoading,
     refetch,
   } = useUsageData(30);
@@ -101,6 +103,13 @@ export default function Dashboard() {
             todayCost={todayOpenaiCost}
             todayTokens={todayOpenaiTokens}
             hasKey={!!settings.openai_key}
+          />
+          <ProviderCard
+            name="Claude Code"
+            color="#10b981"
+            todayCost={todayClaudeCodeCost}
+            todayTokens={todayClaudeCodeTokens}
+            hasKey={true}
           />
         </div>
 
